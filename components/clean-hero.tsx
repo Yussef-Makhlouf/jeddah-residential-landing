@@ -17,8 +17,11 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
     { src: "/banner.png", alt: "مشروع الزهراء السكني" },
     { src: "/banner1.png", alt: "مشروع الزهراء السكني" },
     { src: "/banner2.png", alt: "مشروع الزهراء السكني" },
-    { src: "/b.jpg", alt: "مشروع الزهراء السكني" },
-    { src: "/c.jpg", alt: "مشروع الزهراء السكني" },
+    { src: "/banner3.jpg", alt: "مشروع الزهراء السكني" },
+    { src: "/banner4.jpg", alt: "مشروع الزهراء السكني" },
+    { src: "/banner5.jpg", alt: "مشروع الزهراء السكني" },
+
+
   ]
 
   // Auto-advance carousel
@@ -88,7 +91,7 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
               <div className="space-y-4">
                 <p className="text-white/80 mx-3">أسعار تبدأ من</p>
                 <div className="flex items-center  space-x-2 space-x-reverse">
-                  <span className="text-5xl font-bold text-white">870,000</span>
+                  <span className="text-4xl font-bold text-white">870,000</span>
                   <span className="text-2xl text-white"><Image src="/sar.svg" alt="sar" width={90} height={90} className="w-20 h-20" /></span>
                 </div>
               </div>
@@ -120,8 +123,8 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
                     }`}
                   >
                     <img
-                      src={image.src}
-                      alt={image.alt}
+                      src={image?.src}
+                      alt={image?.alt}
                       className="w-full h-full object-cover"
                     />
                   </div>
