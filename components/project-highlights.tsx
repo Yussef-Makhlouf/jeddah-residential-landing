@@ -1,4 +1,4 @@
-import { Shield, Wifi, Camera, Thermometer, Users, MapPin, Award, Clock, CheckCircle, Star } from "lucide-react"
+  import { Shield, Wifi, Camera, Users, MapPin, CheckCircle, LucideSnowflake, Building2, Zap, Droplets, Users2 } from "lucide-react"
 
 const highlights = [
   {
@@ -7,7 +7,7 @@ const highlights = [
 
   },
   {
-    icon: Thermometer,
+    icon: LucideSnowflake,
     title: "مداخل مكيفة",
 
   },
@@ -35,12 +35,22 @@ const highlights = [
 
 
 const trustFactors = [
-  "15 سنه ضمان على الهيكل الأنشائي",
-  "25 سنه ضمان على قواطع وأفياش",
-  "سنتين ضمان على سباكة",
-  "سنة ضمان على اتحاد الملاك",
-
-
+  {
+    text: "15 سنه ضمان على الهيكل الأنشائي",
+    icon: Building2,
+  },
+  {
+    text: "25 سنه ضمان على قواطع وأفياش",
+    icon: Zap,
+  },
+  {
+    text: "سنتين ضمان على سباكة",
+    icon: Droplets,
+  },
+  {
+    text: "سنة ضمان على اتحاد الملاك",
+    icon: Users2,
+  },
 ]
 
 export function ProjectHighlights() {
@@ -52,7 +62,7 @@ export function ProjectHighlights() {
           <h2 className="text-2xl md:text-2xl lg:text-4xl font-bold text-[#2c2c2c] mb-4">
             <span className="font-bold text-[#540f6b]">مميزات المشروع</span>
           </h2>
-          <p className="text-sm md:text-sm text-[#6b7280] max-w-3xl mx-auto">
+          <p className="text-base md:text-base text-[#6b7280] max-w-3xl mx-auto">
             مساحات تصل إلى 155 م² - موقع استثنائي قريب من الواجهة البحرية والمطار وأهم الشوارع الرئيسية
           </p>
         </div>
@@ -73,7 +83,7 @@ export function ProjectHighlights() {
         {/* Guarantees Section */}
         <div className="mt-16 md:mt-20">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#2c2c2c] mb-4">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#2c2c2c] mb-4">
               <span className="font-bold text-[#540f6b]">ضمانات المشروع</span>
             </h2>
             <p className="text-lg md:text-xl text-[#6b7280] max-w-3xl mx-auto">
@@ -87,8 +97,10 @@ export function ProjectHighlights() {
             <div className="grid grid-cols-2 gap-4 md:gap-6">
               {trustFactors.map((factor, index) => (
                 <div key={index} className="flex items-center gap-2 md:gap-3">
-                  <CheckCircle className="w-4 md:w-5 h-4 md:h-5 text-[#540f6b] flex-shrink-0" />
-                  <span className="text-[#2c2c2c] text-sm md:text-base font-medium">{factor}</span>
+                  <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-full w-8 md:w-10 h-8 md:h-10 border border-[#e5e1dc]">
+                    <factor.icon className="w-4 md:w-5 h-4 md:h-5 text-[#540f6b]" />
+                  </div>
+                  <span className="text-[#2c2c2c] text-sm md:text-base font-medium">{factor.text}</span>
                 </div>
               ))}
             </div>

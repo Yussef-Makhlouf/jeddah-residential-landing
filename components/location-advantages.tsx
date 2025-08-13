@@ -5,13 +5,13 @@ const locationFeatures = [
     icon: MapPin,
     title: "قريب من الواجهة البحرية",
 
-    time: "10 دقائق",
+    time: "8 دقائق",
   },
   {
     icon: Plane,
     title: "قريب من المطار",
 
-    time: "15 دقيقة",
+    time: "10 دقيقة",
   },
   {
     icon: Car,

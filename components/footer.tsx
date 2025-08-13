@@ -17,6 +17,7 @@ export function Footer() {
             <div>
               <h3 className="text-xl font-bold">مشروع راف 25</h3>
               <p className="text-sm text-gray-200"> رقم الترخيص: I20002693</p>
+              <p className="text-sm text-gray-200"> الرقم الموحد: 920031103</p>
             </div>
           </div>
 

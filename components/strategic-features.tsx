@@ -1,4 +1,9 @@
-import { MapPin, School, Building2, TreePine, Stethoscope } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { MapPin, School, Building2, TreePine, Stethoscope, Calendar } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { BookingModal } from "@/components/booking-modal"
 
 const features = [
   {
@@ -35,6 +40,8 @@ const features = [
 ]
 
 export function StrategicFeatures() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
     <section className="py-16 md:py-24 bg-[#efedea]">
       <div className="container mx-auto px-4 md:px-6">
@@ -77,7 +84,7 @@ export function StrategicFeatures() {
         </div>
 
         {/* Secondary Features Grid - Mobile First */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 mb-12">
           {features.filter(f => !f.isMain).map((feature, index) => (
             <div key={index} className="group">
               <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 border flex flex-row items-center justify-center border-[#e5e1dc] hover:border-[#c48765] transition-all duration-300 shadow-sm hover:shadow-md h-full">
@@ -94,7 +101,21 @@ export function StrategicFeatures() {
             </div>
           ))}
         </div>
+
+        {/* Call to Action Button */}
+        <div className="text-center">
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-[#540f6b] hover:bg-[#31203a] text-white px-8 py-4 rounded-[18px] text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1 flex items-center space-x-2 space-x-reverse mx-auto p-6"
+          >
+            <Calendar className="w-5 h-5" />
+            <span>احجز موعد المعاينة الآن</span>
+          </Button>
+        </div>
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   )
 }

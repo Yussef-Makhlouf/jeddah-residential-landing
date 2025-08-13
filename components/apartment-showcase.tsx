@@ -71,12 +71,10 @@ export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#2c2c2c] mb-4">
-            <span className="font-bold text-[#540f6b]">نماذج الشقق</span> المتاحة
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2c2c2c] mb-4">
+            <span className="font-bold text-[#540f6b] ">نماذج الشقق</span> المتاحة
           </h2>
-          <p className="text-lg md:text-xl text-[#6b7280] max-w-2xl mx-auto">
-            اختر النموذج المناسب لك من بين 4 تصاميم مختلفة تلبي احتياجات جميع العائلات
-          </p>
+   
         </div>
 
         {/* Mobile Tabs */}
