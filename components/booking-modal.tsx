@@ -18,10 +18,7 @@ interface BookingModalProps {
 interface FormData {
   name: string
   phone: string
-  email: string
-  apartmentModel: string
-  visitDate: string
-  visitTime: string
+
   notes: string
 }
 
@@ -33,10 +30,6 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
-    email: "",
-    apartmentModel: "",
-    visitDate: "",
-    visitTime: "",
     notes: "",
   })
 
@@ -48,47 +41,17 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
-    // Name validation
-    if (!formData.name.trim()) {
-      newErrors.name = "الاسم مطلوب"
-    } else if (formData.name.trim().length < 2) {
+    // Name validation (optional)
+    if (formData.name.trim() && formData.name.trim().length < 2) {
       newErrors.name = "الاسم يجب أن يكون أكثر من حرفين"
     }
 
-    // Phone validation (Saudi format)
+    // Phone validation (Saudi format) - required
     const phoneRegex = /^(05|5)[0-9]{8}$/
     if (!formData.phone.trim()) {
       newErrors.phone = "رقم الجوال مطلوب"
     } else if (!phoneRegex.test(formData.phone.replace(/\s/g, ""))) {
       newErrors.phone = "رقم الجوال غير صحيح (مثال: 0501234567)"
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (formData.email && !emailRegex.test(formData.email)) {
-      newErrors.email = "البريد الإلكتروني غير صحيح"
-    }
-
-    // Apartment model validation
-    if (!formData.apartmentModel) {
-      newErrors.apartmentModel = "يرجى اختيار نموذج الشقة"
-    }
-
-    // Visit date validation
-    if (!formData.visitDate) {
-      newErrors.visitDate = "تاريخ الزيارة مطلوب"
-    } else {
-      const selectedDate = new Date(formData.visitDate)
-      const today = new Date()
-      today.setHours(0, 0, 0, 0)
-      if (selectedDate < today) {
-        newErrors.visitDate = "لا يمكن اختيار تاريخ في الماضي"
-      }
-    }
-
-    // Visit time validation
-    if (!formData.visitTime) {
-      newErrors.visitTime = "وقت الزيارة مطلوب"
     }
 
     setErrors(newErrors)
@@ -114,10 +77,6 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
       setFormData({
         name: "",
         phone: "",
-        email: "",
-        apartmentModel: "",
-        visitDate: "",
-        visitTime: "",
         notes: "",
       })
       onClose()
@@ -140,8 +99,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-[#e5e1dc]">
           <div>
-            <h2 className="text-2xl font-bold text-[#540f6b]">احجز موعد المعاينة</h2>
-            <p className="text-[#6b7280] mt-1">املأ البيانات وسنتواصل معك خلال 24 ساعة</p>
+            <h2 className="text-2xl font-bold text-[#540f6b]">أحجز و تملك الآن شقة العمر</h2>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full w-10 h-10 p-0 hover:bg-[#f5f3f0]">
             <X className="w-5 h-5 text-[#6b7280]" />
@@ -152,7 +110,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
         {isSubmitted ? (
           <div className="p-12 text-center">
             <div className="w-16 h-16 bg-[#c48765] bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-[#c48765]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8 text-[#ffffff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
@@ -164,15 +122,13 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
             {/* Personal Information */}
             <div className="space-y-4">
-              <h3 className="font-bold text-[#2c2c2c] flex items-center space-x-2 space-x-reverse">
-                <User className="w-5 h-5 text-[#540f6b]" />
-                <span>البيانات الشخصية</span>
-              </h3>
+         
+
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="name" className="text-[#2c2c2c]">
-                    الاسم الكامل *
+                  <Label htmlFor="name" className="text-[#2c2c2c] my-2">
+                    الاسم الكامل (اختياري)
                   </Label>
                   <Input
                     id="name"
@@ -185,7 +141,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 </div>
 
                 <div>
-                  <Label htmlFor="phone" className="text-[#2c2c2c]">
+                  <Label htmlFor="phone" className="text-[#2c2c2c] my-2">
                     رقم الجوال *
                   </Label>
                   <Input
@@ -200,105 +156,12 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 </div>
               </div>
 
-              <div>
-                <Label htmlFor="email" className="text-[#2c2c2c]">
-                  البريد الإلكتروني (اختياري)
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                  className={`mt-1 border-[#e5e1dc] focus:border-[#540f6b] focus:ring-[#540f6b] ${errors.email ? "border-red-500" : ""}`}
-                  placeholder="example@email.com"
-                  dir="ltr"
-                />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-              </div>
-            </div>
 
-            {/* Apartment Selection */}
-            <div className="space-y-4">
-              <h3 className="font-bold text-[#2c2c2c] flex items-center space-x-2 space-x-reverse">
-                <Home className="w-5 h-5 text-[#540f6b]" />
-                <span>تفاصيل الشقة</span>
-              </h3>
-
-              <div>
-                <Label htmlFor="apartmentModel" className="text-[#2c2c2c]">
-                  نموذج الشقة المطلوب *
-                </Label>
-                <Select
-                  value={formData.apartmentModel}
-                  onValueChange={(value) => handleInputChange("apartmentModel", value)}
-                >
-                  <SelectTrigger
-                    className={`mt-1 border-[#e5e1dc] focus:border-[#540f6b] focus:ring-[#540f6b] ${errors.apartmentModel ? "border-red-500" : ""}`}
-                  >
-                    <SelectValue placeholder="اختر نموذج الشقة" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="A">نموذج A - واجهة أمامية (890,000 ﷼)</SelectItem>
-                    <SelectItem value="B">نموذج B - واجهة خلفية (870,000 ﷼)</SelectItem>
-                    <SelectItem value="C">نموذج C - واجهة خلفية (870,000 ﷼)</SelectItem>
-                    <SelectItem value="D">نموذج D - واجهة أمامية (890,000 ﷼)</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.apartmentModel && <p className="text-red-500 text-sm mt-1">{errors.apartmentModel}</p>}
-              </div>
-            </div>
-
-            {/* Visit Details */}
-            <div className="space-y-4">
-              <h3 className="font-bold text-[#2c2c2c] flex items-center space-x-2 space-x-reverse">
-                <Calendar className="w-5 h-5 text-[#540f6b]" />
-                <span>موعد الزيارة</span>
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="visitDate" className="text-[#2c2c2c]">
-                    تاريخ الزيارة *
-                  </Label>
-                  <Input
-                    id="visitDate"
-                    type="date"
-                    value={formData.visitDate}
-                    onChange={(e) => handleInputChange("visitDate", e.target.value)}
-                    className={`mt-1 border-[#e5e1dc] focus:border-[#540f6b] focus:ring-[#540f6b] ${errors.visitDate ? "border-red-500" : ""}`}
-                    min={new Date().toISOString().split("T")[0]}
-                  />
-                  {errors.visitDate && <p className="text-red-500 text-sm mt-1">{errors.visitDate}</p>}
-                </div>
-
-                <div>
-                  <Label htmlFor="visitTime" className="text-[#2c2c2c]">
-                    وقت الزيارة *
-                  </Label>
-                  <Select value={formData.visitTime} onValueChange={(value) => handleInputChange("visitTime", value)}>
-                    <SelectTrigger
-                      className={`mt-1 border-[#e5e1dc] focus:border-[#540f6b] focus:ring-[#540f6b] ${errors.visitTime ? "border-red-500" : ""}`}
-                    >
-                      <SelectValue placeholder="اختر الوقت المناسب" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="09:00">9:00 صباحاً</SelectItem>
-                      <SelectItem value="10:00">10:00 صباحاً</SelectItem>
-                      <SelectItem value="11:00">11:00 صباحاً</SelectItem>
-                      <SelectItem value="14:00">2:00 مساءً</SelectItem>
-                      <SelectItem value="15:00">3:00 مساءً</SelectItem>
-                      <SelectItem value="16:00">4:00 مساءً</SelectItem>
-                      <SelectItem value="17:00">5:00 مساءً</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {errors.visitTime && <p className="text-red-500 text-sm mt-1">{errors.visitTime}</p>}
-                </div>
-              </div>
             </div>
 
             {/* Additional Notes */}
             <div>
-              <Label htmlFor="notes" className="text-[#2c2c2c]">
+              <Label htmlFor="notes" className="text-[#2c2c2c] my-2">
                 ملاحظات إضافية (اختياري)
               </Label>
               <Textarea
@@ -324,7 +187,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 type="button"
                 variant="outline"
                 onClick={onClose}
-                className="border-[#c48765] text-[#c48765] hover:bg-[#c48765] hover:text-white px-8 py-3 rounded-xl bg-transparent transition-all duration-300"
+                className="border-[#c48765] text-[#c48765]  hover:text-[#c48765] px-8 py-3 rounded-xl bg-transparent transition-all duration-300"
               >
                 إلغاء
               </Button>
