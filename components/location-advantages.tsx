@@ -4,25 +4,25 @@ const locationFeatures = [
   {
     icon: MapPin,
     title: "قريب من الواجهة البحرية",
-    description: "على بُعد دقائق من كورنيش جدة",
+
     time: "10 دقائق",
   },
   {
     icon: Plane,
     title: "قريب من المطار",
-    description: "سهولة السفر والوصول",
+
     time: "15 دقيقة",
   },
   {
     icon: Car,
     title: "شوارع رئيسية",
-    description: "اتصال مباشر بأهم الطرق",
+
     time: "مباشر",
   },
   {
     icon: Clock,
     title: "مركز المدينة",
-    description: "وسط جدة وقريب من كل شيء",
+
     time: "20 دقيقة",
   },
 ]
@@ -34,8 +34,8 @@ export function LocationAdvantages() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div>
-            <h2 className="text-4xl lg:text-5xl font-light text-[#2c2c2c] mb-6">
-              <span className="font-bold text-[#540f6b]">موقع مثالي</span> بالقرب من كل ما تحتاجه
+            <h2 className="text-2xl lg:text-3xl font-bold text-[#2c2c2c] mb-6">
+              <span className=" font-bold text-[#540f6b]">موقع مثالي</span> بالقرب من كل ما تحتاجه
             </h2>
             <p className="text-xl text-[#6b7280] mb-12">
               يتميز المشروع بموقعه الاستراتيجي الذي يوفر سهولة الوصول لجميع المرافق والخدمات المهمة في جدة
@@ -54,7 +54,7 @@ export function LocationAdvantages() {
                         {feature.time}
                       </span>
                     </div>
-                    <p className="text-[#434344]">{feature.description}</p>
+
                   </div>
                 </div>
               ))}
@@ -77,12 +77,9 @@ export function LocationAdvantages() {
               ></iframe>
             </div>
             <div className="p-6">
-              <h3 className="font-bold text-lg text-[#2c2c2c] mb-2">مشروع الزهراء 25</h3>
+              <h3 className="font-bold text-lg text-[#2c2c2c] mb-2">مشروع راف 25</h3>
               <p className="text-[#6b7280] mb-4">حي الزهراء، جدة، المملكة العربية السعودية</p>
-              <div className="flex items-center space-x-2 space-x-reverse text-sm text-[#6b7280]">
-                <MapPin className="w-4 h-4 text-[#c48765]" />
-                <span>إحداثيات GPS متاحة</span>
-              </div>
+        
             </div>
           </div>
         </div>

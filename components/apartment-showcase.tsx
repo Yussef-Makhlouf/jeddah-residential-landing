@@ -80,13 +80,13 @@ export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
         </div>
 
         {/* Mobile Tabs */}
-        <div className="lg:hidden mb-8">
-          <div className="flex overflow-x-auto pb-2 space-x-2 space-x-reverse">
+        <div className="lg:hidden mb-8" >
+          <div className="flex overflow-x-auto pb-2 space-x-2 space-x-reverse mx-2">
             {apartments.map((apartment) => (
               <button
                 key={apartment.id}
                 onClick={() => setSelectedApartment(apartment)}
-                className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all  mx-1 duration-300 ${
                   selectedApartment.id === apartment.id
                     ? "bg-[#540f6b] text-white"
                     : "bg-white text-[#6b7280] border border-[#e5e1dc]"
@@ -201,25 +201,7 @@ export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
                   </div>
                 </div>
 
-                {/* CTA */}
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                  <Button
-                    onClick={onBookingClick}
-                    size="lg"
-                    className="bg-[#540f6b] hover:bg-[#6d1f7b] text-white px-6 md:px-8 py-3 rounded-xl flex-1 text-sm md:text-base transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1"
-                  >
-                    احجز هذا النموذج
-                  </Button>
-                  <Button
-                    onClick={handleWhatsAppContact}
-                    variant="outline"
-                    size="lg"
-                    className="border-[#c48765] text-[#c48765] hover:bg-[#c48765] hover:text-[#540f6b] px-6 md:px-8 py-3 rounded-xl bg-transparent flex items-center justify-center space-x-2 space-x-reverse text-sm md:text-base transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>تواصل واتساب</span>
-                  </Button>
-                </div>
+   
               </div>
             </div>
           </div>
