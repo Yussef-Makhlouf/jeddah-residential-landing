@@ -104,7 +104,7 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
                 size="lg"
                 className="bg-white hover:bg-[#540f6b] text-[#540f6b] hover:text-white px-12 py-6 text-lg rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1 backdrop-blur-sm"
               >
-                احجز موعد المعاينة
+                أحجز و تملك الآن شقة العمر
               </Button>
             </div>
           </div>
