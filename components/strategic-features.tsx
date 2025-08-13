@@ -109,7 +109,7 @@ export function StrategicFeatures() {
             className="bg-[#540f6b] hover:bg-[#31203a] text-white px-8 py-4 rounded-[18px] text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1 flex items-center space-x-2 space-x-reverse mx-auto p-6"
           >
             <Calendar className="w-5 h-5" />
-            <span>احجز موعد المعاينة الآن</span>
+            <span>أحجز و تملك الآن شقة العمر</span>
           </Button>
         </div>
       </div>
