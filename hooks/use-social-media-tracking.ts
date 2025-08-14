@@ -29,7 +29,8 @@ export const useSocialMediaTracking = () => {
       facebook: 'فيسبوك',
       instagram: 'إنستغرام',
       twitter: 'تويتر',
-      linkedin: 'لينكد إن'
+      tiktok: 'تيك توك',
+      snapchat: 'سناب شات'
     }
     
     return platformNames[platform] || platform
@@ -40,7 +41,8 @@ export const useSocialMediaTracking = () => {
       facebook: '📘',
       instagram: '📷',
       twitter: '🐦',
-      linkedin: '💼'
+      tiktok: '🎵',
+      snapchat: '👻'
     }
     
     return platformIcons[platform] || '🔗'

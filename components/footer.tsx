@@ -38,7 +38,7 @@ export function Footer() {
             <div className="flex gap-3">
               {/* TikTok */}
               <a
-                href="https://www.tiktok.com/@rafgrope"
+                href="https://www.tiktok.com/@raf_grope?_t=ZS-8ys0flOq8uW&_r=1"
                 className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
                 aria-label="TikTok"
               >

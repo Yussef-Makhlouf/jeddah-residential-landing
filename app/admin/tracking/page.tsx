@@ -57,7 +57,8 @@ export default function TrackingPage() {
                      <li>• /facebook أو /fb - لتتبع زيارات فيسبوك</li>
                      <li>• /instagram أو /ig - لتتبع زيارات إنستغرام</li>
                      <li>• /twitter أو /tw - لتتبع زيارات تويتر</li>
-                     <li>• /linkedin أو /li - لتتبع زيارات لينكد إن</li>
+                     <li>• /tiktok أو /tt - لتتبع زيارات تيك توك</li>
+                     <li>• /snapchat أو /sc - لتتبع زيارات سناب شات</li>
                    </ul>
                  </div>
                 <div className="p-3 bg-green-50 rounded-lg">

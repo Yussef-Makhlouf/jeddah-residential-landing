@@ -3,16 +3,19 @@
 import { Button } from "@/components/ui/button"
 import { MapPin, Star, MessageCircle } from "lucide-react"
 import Image from "next/image"
+import { useSourceTracking } from "@/hooks/use-source-tracking"
+import { generateWhatsAppUrl } from "@/lib/whatsapp-messages"
 
 interface CleanHeroProps {
   onBookingClick: () => void
 }
 
 export function CleanHero({ onBookingClick }: CleanHeroProps) {
+  const { source, socialMedia } = useSourceTracking()
 
   const handleWhatsAppContact = () => {
-    const message = `مرحباً، أريد الاستفسار عن مشروع راف 25`
-    const whatsappUrl = `https://wa.me/966536667967?text=${encodeURIComponent(message)}`
+    const platform = socialMedia || source || 'default'
+    const whatsappUrl = generateWhatsAppUrl(platform)
     window.open(whatsappUrl, "_blank")
   }
 

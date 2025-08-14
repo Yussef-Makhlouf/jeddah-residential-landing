@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Bed, Bath, Square, MessageCircle } from "lucide-react"
 import Image from "next/image"
+import { useSourceTracking } from "@/hooks/use-source-tracking"
+import { generateWhatsAppUrl } from "@/lib/whatsapp-messages"
 
 interface ApartmentShowcaseProps {
   onBookingClick: () => void
@@ -59,10 +61,11 @@ const apartments = [
 
 export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
   const [selectedApartment, setSelectedApartment] = useState(apartments[0])
+  const { source, socialMedia } = useSourceTracking()
 
   const handleWhatsAppContact = () => {
-    const message = `مرحباً، أريد الاستفسار عن ${selectedApartment.name} في مشروع حي الزهراء 25`
-    const whatsappUrl = `https://wa.me/966500000000?text=${encodeURIComponent(message)}`
+    const platform = socialMedia || source || 'default'
+    const whatsappUrl = generateWhatsAppUrl(platform)
     window.open(whatsappUrl, "_blank")
   }
 

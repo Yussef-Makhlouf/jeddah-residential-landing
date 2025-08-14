@@ -26,11 +26,15 @@ export const SocialMediaLinks = () => {
   }
 
   const getPlatformInfo = (platform: SocialPlatform) => {
-    const platformInfo = {
+    const platformInfo: Record<SocialPlatform, { name: string; icon: string; color: string }> = {
       [SOCIAL_MEDIA_PLATFORMS.FACEBOOK]: { name: 'فيسبوك', icon: '📘', color: 'bg-blue-500' },
       [SOCIAL_MEDIA_PLATFORMS.INSTAGRAM]: { name: 'إنستغرام', icon: '📷', color: 'bg-pink-500' },
       [SOCIAL_MEDIA_PLATFORMS.TWITTER]: { name: 'تويتر', icon: '🐦', color: 'bg-sky-500' },
-      [SOCIAL_MEDIA_PLATFORMS.LINKEDIN]: { name: 'لينكد إن', icon: '💼', color: 'bg-blue-600' }
+      [SOCIAL_MEDIA_PLATFORMS.TIKTOK]: { name: 'تيك توك', icon: '🎵', color: 'bg-black' },
+      [SOCIAL_MEDIA_PLATFORMS.SNAPCHAT]: { name: 'سناب شات', icon: '👻', color: 'bg-yellow-500' },
+      [SOCIAL_MEDIA_PLATFORMS.META]: { name: 'ميتا', icon: '🌐', color: 'bg-blue-500' },
+      [SOCIAL_MEDIA_PLATFORMS.GOOGLE]: { name: 'جوجل', icon: '🔍', color: 'bg-red-500' },
+      [SOCIAL_MEDIA_PLATFORMS.WHATSAPP]: { name: 'واتساب', icon: '📱', color: 'bg-green-500' }
     }
     
     return platformInfo[platform]
@@ -61,7 +65,7 @@ export const SocialMediaLinks = () => {
               onChange={(e) => setUseExtensions(e.target.checked)}
               className="rounded"
             />
-            <Label htmlFor="useExtensions">استخدام امتدادات مختصرة (fb, ig, tw, li)</Label>
+            <Label htmlFor="useExtensions">استخدام امتدادات مختصرة (fb, ig, tw, tt, sc)</Label>
           </div>
         </div>
         

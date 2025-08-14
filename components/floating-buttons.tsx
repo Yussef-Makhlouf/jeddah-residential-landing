@@ -1,16 +1,21 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Phone, MessageCircle } from "lucide-react"
+import { Phone } from "lucide-react"
+import { useSourceTracking } from "@/hooks/use-source-tracking"
+import { generateWhatsAppUrl } from "@/lib/whatsapp-messages"
 
 interface FloatingButtonsProps {
   onBookingClick: () => void
 }
 
 export function FloatingButtons({ onBookingClick }: FloatingButtonsProps) {
+  const { source, socialMedia } = useSourceTracking()
+  
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("مرحباً، أريد الاستفسار عن مشروع الزهراء السكني")
-    window.open(`https://wa.me/966536667967?text=${message}`, "_blank")
+    const platform = socialMedia || source || 'default'
+    const whatsappUrl = generateWhatsAppUrl(platform)
+    window.open(whatsappUrl, "_blank")
   }
 
   const handleCallClick = () => {

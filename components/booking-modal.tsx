@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Notification } from "@/components/ui/notification"
+import { useSourceTracking } from "@/hooks/use-source-tracking"
 import { X, User, Calendar, Home } from "lucide-react"
 
 interface BookingModalProps {
@@ -27,6 +29,8 @@ interface FormErrors {
 }
 
 export function BookingModal({ isOpen, onClose }: BookingModalProps) {
+  const { source, socialMedia } = useSourceTracking()
+  
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -36,6 +40,15 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [notification, setNotification] = useState<{
+    type: 'success' | 'error' | 'info'
+    message: string
+    isVisible: boolean
+  }>({
+    type: 'info',
+    message: '',
+    isVisible: false
+  })
 
   // Advanced validation
   const validateForm = (): boolean => {
@@ -65,22 +78,49 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: "",
-        phone: "",
-        notes: "",
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          source,
+          socialMedia
+        }),
       })
-      onClose()
-    }, 3000)
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'حدث خطأ أثناء إرسال الطلب')
+      }
+
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({
+          name: "",
+          phone: "",
+          notes: "",
+        })
+        onClose()
+      }, 3000)
+
+    } catch (error) {
+      console.error('خطأ في إرسال الطلب:', error)
+      setIsSubmitting(false)
+      
+      setNotification({
+        type: 'error',
+        message: 'حدث خطأ أثناء إرسال الطلب، يرجى المحاولة مرة أخرى',
+        isVisible: true
+      })
+    }
   }
 
   const handleInputChange = (field: keyof FormData, value: string) => {
@@ -94,7 +134,14 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <>
+      <Notification
+        type={notification.type}
+        message={notification.message}
+        isVisible={notification.isVisible}
+        onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
+      />
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[#e5e1dc]">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-[#e5e1dc]">
@@ -196,5 +243,6 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
         )}
       </div>
     </div>
+    </>
   )
 }
