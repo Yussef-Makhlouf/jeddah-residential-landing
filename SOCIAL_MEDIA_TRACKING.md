@@ -42,7 +42,6 @@ https://yoursite.com/ig?utm_campaign=summer_promo&utm_medium=social
    - `localStorage` (للوصول السريع)
    - `cookies` (للوصول من الخادم)
 2. يتم توجيه المستخدم تلقائياً إلى الصفحة الرئيسية
-3. يظهر شارة صغيرة في أعلى اليسار تظهر مصدر الزيارة
 
 ## الملفات المضافة
 
@@ -59,11 +58,7 @@ https://yoursite.com/ig?utm_campaign=summer_promo&utm_medium=social
 - Hook مخصص للوصول لبيانات التتبع
 - يوفر أسماء وأيقونات المنصات بالعربية
 
-### 4. `components/social-media-badge.tsx`
-- مكون لعرض شارة مصدر الزيارة
-- يظهر في أعلى اليسار عند وجود بيانات تتبع
-
-### 5. `components/social-media-links.tsx`
+### 4. `components/social-media-links.tsx`
 - مكون لتوليد روابط التتبع
 - يسمح بنسخ الروابط بسهولة
 
