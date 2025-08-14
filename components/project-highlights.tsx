@@ -41,15 +41,15 @@ const highlights = [
 
 const trustFactors = [
   {
-    text: "15 سنه ضمان على الهيكل الأنشائي",
+    text: "15 سنة ضمان على الهيكل الإنشائي",
     icon: Building2,
   },
   {
-    text: "25 سنه ضمان على قواطع وأفياش",
+    text: "25 سنة ضمان على القواطع والأفياش",
     icon: Zap,
   },
   {
-    text: "سنتين ضمان على سباكة",
+    text: "سنتين ضمان على السباكة",
     icon: Droplets,
   },
   {
@@ -122,7 +122,7 @@ export function ProjectHighlights() {
             onClick={() => setIsModalOpen(true)}
             className="bg-[#540f6b] hover:bg-[#540f6b] text-white  px-8 py-6 rounded-[18px] text-lg font-bold transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1"
           >
-            أحجز و تملك الآن شقة العمر
+            احجز وتملك الآن شقة العمر
           </Button>
         </div>
       </div>

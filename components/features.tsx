@@ -4,7 +4,7 @@ export function Features() {
   const features = [
     {
       icon: MapPin,
-      title: "موقع استراتيجي",
+      title: "موقع إستراتيجي",
       description: "يقع وسط 3 شوارع رئيسية: شارع حلمي كتبي، طريق الأمير سلطان، شارع عبد الله كاظم",
     },
     {
@@ -28,7 +28,7 @@ export function Features() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">مميزات الموقع الاستراتيجي</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">مميزات الموقع الإستراتيجي</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">قريب من المسجد - الحدائق - المدارس - المستشفى</p>
         </div>
 

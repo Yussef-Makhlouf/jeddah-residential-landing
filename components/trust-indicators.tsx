@@ -16,7 +16,7 @@ const guarantees = [
   {
     icon: Clock,
     title: "سنتين",
-    subtitle: "أعمال سباكة",
+    subtitle: "أعمال السباكة",
     description: "ضمان شامل للسباكة",
   },
   {

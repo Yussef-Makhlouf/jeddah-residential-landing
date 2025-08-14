@@ -12,7 +12,7 @@ const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
 
 export const metadata: Metadata = {
   title: "مشروع الزهراء السكني - جدة",
-  description: "مشروع سكني متميز في حي الزهراء بجدة. أسعار تبدأ من 870,000 ريال. موقع استراتيجي وتصميم عصري.",
+  description: "مشروع سكني متميز في حي الزهراء بجدة. أسعار تبدأ من 870,000 ريال. موقع إستراتيجي وتصميم عصري.",
   icons: {
     icon: "/favicon.png",
   },

@@ -48,7 +48,7 @@ export function Hero() {
 
             <div className="flex items-center space-x-4 space-x-reverse text-gray-600">
               <MapPin className="w-5 h-5 text-blue-600" />
-              <span>موقع استراتيجي قريب من المسجد والحدائق والمدارس</span>
+              <span>موقع إستراتيجي قريب من المسجد والحدائق والمدارس</span>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">

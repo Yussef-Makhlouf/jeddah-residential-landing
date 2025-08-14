@@ -7,7 +7,7 @@ export function Location() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">خريطة المشروع</h2>
-          <p className="text-xl text-gray-600">موقع استراتيجي في قلب جدة - حي الزهراء</p>
+          <p className="text-xl text-gray-600">موقع إستراتيجي في قلب جدة - حي الزهراء</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">

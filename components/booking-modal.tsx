@@ -99,7 +99,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-[#e5e1dc]">
           <div>
-            <h2 className="text-2xl font-bold text-[#540f6b]">أحجز و تملك الآن شقة العمر</h2>
+            <h2 className="text-2xl font-bold text-[#540f6b]">احجز وتملك الآن شقة العمر</h2>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full w-10 h-10 p-0 hover:bg-[#f5f3f0]">
             <X className="w-5 h-5 text-[#6b7280]" />
@@ -115,7 +115,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-[#540f6b] mb-2">تم إرسال طلبك بنجاح!</h3>
-            <p className="text-[#6b7280]">سنتواصل معك قريباً لتأكيد موعد المعاينة</p>
+            <p className="text-[#6b7280]">سنتواصل معك قريباً </p>
           </div>
         ) : (
           /* Form */
@@ -135,7 +135,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
                     className={`mt-1 border-[#e5e1dc] focus:border-[#540f6b] focus:ring-[#540f6b] ${errors.name ? "border-red-500" : ""}`}
-                    placeholder="أدخل اسمك الكامل"
+                    placeholder="أدخل اسمك "
                   />
                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                 </div>
@@ -169,7 +169,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 value={formData.notes}
                 onChange={(e) => handleInputChange("notes", e.target.value)}
                 className="mt-1 border-[#e5e1dc] focus:border-[#540f6b] focus:ring-[#540f6b]"
-                placeholder="أي متطلبات خاصة أو أسئلة تود طرحها..."
+                placeholder="أترك ملاحظاتك هنا"
                 rows={3}
               />
             </div>

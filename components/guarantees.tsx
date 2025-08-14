@@ -17,7 +17,7 @@ export function Guarantees() {
     {
       icon: Wrench,
       years: "2",
-      title: "أعمال سباكة",
+      title: "أعمال السباكة",
       description: "ضمان على جميع أعمال السباكة والصرف",
     },
     {

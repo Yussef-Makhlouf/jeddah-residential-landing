@@ -8,7 +8,7 @@ import { BookingModal } from "@/components/booking-modal"
 const features = [
   {
     icon: MapPin,
-    title: "موقع استراتيجي",
+    title: "موقع إستراتيجي",
     description: "وسط 3 شوارع رئيسية",
     details: ["شارع حلمي كتبي", "طريق الأمير سلطان", "شارع عبد الله كاظم"],
     isMain: true,
@@ -48,7 +48,7 @@ export function StrategicFeatures() {
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-2xl md:text-2xl lg:text-4xl font-bold text-[#2c2c2c] mb-4">
-            <span className="font-bold text-[#540f6b]">مميزات الموقع</span> الاستراتيجي
+            <span className="font-bold text-[#540f6b]">مميزات الموقع</span> الإستراتيجي
           </h2>
         </div>
 
@@ -109,7 +109,7 @@ export function StrategicFeatures() {
             className="bg-[#540f6b] hover:bg-[#31203a] text-white px-8 py-4 rounded-[18px] text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1 flex items-center space-x-2 space-x-reverse mx-auto p-6"
           >
             <Calendar className="w-5 h-5" />
-            <span>أحجز و تملك الآن شقة العمر</span>
+            <span>احجز وتملك الآن شقة العمر</span>
           </Button>
         </div>
       </div>

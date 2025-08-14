@@ -11,7 +11,7 @@ const locationFeatures = [
     icon: Plane,
     title: "قريب من المطار",
 
-    time: "10 دقيقة",
+    time: "10 دقائق",
   },
   {
     icon: Car,
@@ -38,7 +38,7 @@ export function LocationAdvantages() {
               <span className=" font-bold text-[#540f6b]">موقع مثالي</span> بالقرب من كل ما تحتاجه
             </h2>
             <p className="text-xl text-[#6b7280] mb-12">
-              يتميز المشروع بموقعه الاستراتيجي الذي يوفر سهولة الوصول لجميع المرافق والخدمات المهمة في جدة
+              يتميز المشروع بموقعه الإستراتيجي الذي يوفر سهولة الوصول لجميع المرافق والخدمات المهمة في جدة
             </p>
 
             <div className="space-y-6">

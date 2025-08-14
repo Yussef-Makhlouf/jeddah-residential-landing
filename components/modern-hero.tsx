@@ -62,7 +62,7 @@ export function ModernHero() {
 
             <div className="flex items-center space-x-4 space-x-reverse text-blue-200">
               <MapPin className="w-6 h-6 text-blue-400" />
-              <span className="text-lg">موقع استراتيجي قريب من المسجد والحدائق والمدارس</span>
+              <span className="text-lg">موقع إستراتيجي قريب من المسجد والحدائق والمدارس</span>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">

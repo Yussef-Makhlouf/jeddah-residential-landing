@@ -73,25 +73,25 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
           <div className="space-y-12">
             <div className="space-y-8">
               <div className="space-y-4 backdrop-blur-md bg-white/10 p-8 rounded-2xl border border-white/20">
-                <h1 className="text-2xl lg:text-4xl font-light text-white leading-tight">
-                  <span className="font-bold">حقق حلمك بتملك </span>
-                  <span className="text-white font-bold">السكن المثالي</span>
+                <h1 className="text-2xl lg:text-4xl font-light text-white leading-tight flex flex-col space-y-2">
+                  <span className="font-bold">حقق حلمك</span>
+                  <span className="text-white font-bold">بتملك السكن المثالى</span>
+                  <span className="text-xl text-white/90 font-light">في جدة - حي الزهراء</span>
                 </h1>
-                <p className="text-xl text-white/90 font-light">في جدة - حي الزهراء</p>
               </div>
 
               <div className="flex items-center space-x-3 space-x-reverse text-white/90 backdrop-blur-sm bg-white/10 px-4 py-3 rounded-lg">
                 <MapPin className="w-5 h-5 text-white" />
-                <span>موقع استراتيجي وسط 3 شوارع رئيسية</span>
+                <span>موقع إستراتيجي وسط 3 شوارع رئيسية</span>
               </div>
             </div>
 
             {/* Price Card */}
             <div className="rounded-2xl p-8 border border-white/20 shadow-elegant backdrop-blur-md bg-white/15">
               <div className="space-y-4">
-                <p className="text-white/80 mx-3">أسعار تبدأ من</p>
-                <div className="flex items-center  space-x-2 space-x-reverse">
-                  <span className="text-4xl font-bold text-white">870,000</span>
+                <p className="text-white/80 mx-3 text-center">أسعار تبدأ من</p>
+                <div className="flex items-center  space-x-2 space-x-reverse justify-center">
+                  <span className="text-4xl font-bold text-white text-center">870,000</span>
                   <span className="text-2xl text-white"><Image src="/sar.svg" alt="sar" width={90} height={90} className="w-20 h-20" /></span>
                 </div>
               </div>
@@ -104,7 +104,7 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
                 size="lg"
                 className="bg-white hover:bg-[#540f6b] text-[#540f6b] hover:text-white px-12 py-6 text-lg rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1 backdrop-blur-sm"
               >
-                أحجز و تملك الآن شقة العمر
+                احجز وتملك الآن شقة العمر
               </Button>
             </div>
           </div>
