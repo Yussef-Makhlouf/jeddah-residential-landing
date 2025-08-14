@@ -88,15 +88,18 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
             </div>
 
             {/* Price Card */}
-            <div className="rounded-2xl p-8 ">
+            <div className="rounded-2xl p-8">
               <div className="space-y-4">
-                <p className="text-white/80 mx-3 text-center">أسعار تبدأ من</p>
-                <div className="flex items-center  space-x-2 space-x-reverse justify-center">
-                  <span className="text-4xl font-bold text-white text-center">870,000</span>
-                  <span className="text-2xl text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="200 200 600 600" width="32" height="32">
-  <path fill="#fff" d="M553.3,687.4c-7.8,17.2-12.9,35.9-14.9,55.5l164.4-35c7.8-17.2,12.9-35.9,14.9-55.5l-164.4,35Z"/>
-  <path fill="#fff" d="M702.8,603.3c7.8-17.2,12.9-35.9,14.9-55.5l-128.1,27.2v-52.4l113.2-24.1c7.8-17.2,12.9-35.9,14.9-55.5l-128.1,27.2v-188.3c-19.6,11-37.1,25.7-51.2,43v156.2l-51.2,10.9v-235.7c-19.6,11-37.1,25.7-51.2,43v203.6l-114.6,24.4c-7.8,17.2-12.9,35.9-14.9,55.5l129.5-27.5v66l-138.8,29.5c-7.8,17.2-12.9,35.9-14.9,55.5l145.3-30.9c11.8-2.5,22-9.5,28.6-19.1l26.6-39.5c2.8-4.1,4.4-9,4.4-14.3v-58.1l51.2-10.9v104.7l164.4-35Z"/>
-</svg></span>
+                <p className="text-white/80 mx-3 text-center lg:text-right">أسعار تبدأ من</p>
+                {/* السعر في الوسط للشاشات الصغيرة، وعلى اليمين للشاشات الكبيرة */}
+                <div className="flex items-center space-x-2 space-x-reverse justify-center lg:justify-start">
+                  <span className="text-4xl font-bold text-white text-center lg:text-right">870,000</span>
+                  <span className="text-2xl text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="200 200 600 600" width="32" height="32">
+                      <path fill="#fff" d="M553.3,687.4c-7.8,17.2-12.9,35.9-14.9,55.5l164.4-35c7.8-17.2,12.9-35.9,14.9-55.5l-164.4,35Z"/>
+                      <path fill="#fff" d="M702.8,603.3c7.8-17.2,12.9-35.9,14.9-55.5l-128.1,27.2v-52.4l113.2-24.1c7.8-17.2,12.9-35.9,14.9-55.5l-128.1,27.2v-188.3c-19.6,11-37.1,25.7-51.2,43v156.2l-51.2,10.9v-235.7c-19.6,11-37.1,25.7-51.2,43v203.6l-114.6,24.4c-7.8,17.2-12.9,35.9-14.9,55.5l129.5-27.5v66l-138.8,29.5c-7.8,17.2-12.9,35.9-14.9,55.5l145.3-30.9c11.8-2.5,22-9.5,28.6-19.1l26.6-39.5c2.8-4.1,4.4-9,4.4-14.3v-58.1l51.2-10.9v104.7l164.4-35Z"/>
+                    </svg>
+                  </span>
                 </div>
               </div>
             </div>
