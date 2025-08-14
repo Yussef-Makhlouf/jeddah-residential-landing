@@ -42,7 +42,7 @@ export function Hero() {
               </h1>
 
               <p className="text-xl text-gray-600 leading-relaxed">
-                أسعار تبدأ من <span className="text-3xl font-bold text-green-600"><Image src="/sar.svg" alt="sar" width={20} height={20} /> 870,000</span> فقط
+                أسعار تبدأ من <span className="text-3xl font-bold text-green-600"><Image src="/sar1.png" alt="sar" width={20} height={20} /> 870,000</span> فقط
               </p>
             </div>
 

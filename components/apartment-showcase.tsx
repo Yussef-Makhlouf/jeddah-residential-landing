@@ -119,7 +119,7 @@ export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
                   <div className="text-left">
                     <div className="text-2xl font-bold flex items-center text-[#540f6b]">
                       {apartment.price}
-                      <Image src="/sar.svg" alt="sar" width={30} height={30} className="ml-1" />
+                      <Image src="/sar1.png" alt="sar" width={30} height={30} className="ml-1" />
                     </div>
                    
                   </div>
@@ -181,7 +181,7 @@ export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
                   <div className="text-right md:text-left">
                     <div className="text-2xl md:text-3xl font-bold text-[#540f6b] flex items-center">
                       {selectedApartment.price}
-                      <Image src="/sar.svg" alt="sar" width={30} height={30} className="ml-1" />
+                      <Image src="/sar1.png" alt="sar" width={30} height={30} className="ml-1" />
                     </div>
                   </div>
                 </div>
