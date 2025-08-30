@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import WebsiteDataService from '@/lib/website-data';
 
 // تكوين الناقل للبريد الإلكتروني (Hostinger)
 const createTransporter = () => {
@@ -64,16 +65,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // الحصول على بيانات المشروع
+    const projectData = WebsiteDataService.getProjectInfo();
+    const projectName = projectData?.name || 'مشروع راف 25';
+
     // إعداد محتوى البريد الإلكتروني
     const mailOptions = {
       from: process.env.SMTP_USER,
       to: process.env.RECIPIENT_EMAIL || process.env.SMTP_USER, // بريد المستلم
-      subject: 'طلب حجز جديد - مشروع جدة السكني',
+      subject: `طلب حجز جديد - ${projectName}`,
       html: `
         <div dir="rtl" lang="ar" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; direction: rtl; text-align: right;">
           <div style="background: linear-gradient(135deg, #540f6b 0%, #7c1f9a 100%); color: white; padding: 25px; text-align: center; border-radius: 15px 15px 0 0; box-shadow: 0 4px 15px rgba(84, 15, 107, 0.3);">
             <h1 style="margin: 0; font-size: 28px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">طلب حجز جديد</h1>
-            <p style="margin: 12px 0 0 0; opacity: 0.95; font-size: 16px;">مشروع جدة السكني</p>
+            <p style="margin: 12px 0 0 0; opacity: 0.95; font-size: 16px;">${projectName}</p>
           </div>
           
           <div style="background-color: white; padding: 35px; border-radius: 0 0 15px 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
@@ -108,17 +113,9 @@ export async function POST(request: NextRequest) {
                   <strong style="color: #2c2c2c; margin-left: 8px; text-align: right">تاريخ الطلب:</strong>
                   <span style="margin-right: 10px; text-align: right">${new Date().toLocaleString('ar-SA')}</span>
                 </div>
-                <div style="margin-bottom: 8px; display: flex; align-items: center;">
-                  <span style="color: #c48765; margin-left: 10px; font-weight: bold;">•</span>
-                  <strong style="color: #2c2c2c; margin-left: 8px; text-align: right">المنصة:</strong>
-                  <span style="margin-right: 10px; text-align: right">${platform}</span>
-                </div>
+          
                 ${source && source !== platform ? `
-                <div style="margin-bottom: 8px; display: flex; align-items: center;">
-                  <span style="color: #c48765; margin-left: 10px; font-weight: bold;">•</span>
-                  <strong style="color: #2c2c2c; margin-left: 8px; text-align: right">مصدر إضافي:</strong>
-                  <span style="margin-right: 10px; text-align: right">${source}</span>
-                </div>
+            
                 ` : ''}
                 ${socialMedia ? `
                 <div style="margin-bottom: 8px; display: flex; align-items: center;">
@@ -135,7 +132,7 @@ export async function POST(request: NextRequest) {
           
           <div style="text-align: center; margin-top: 25px; color: #6b7280; font-size: 13px; padding: 15px; background-color: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
             <p style="margin: 0; text-align: right;">هذا البريد تم إرساله تلقائياً من نظام الحجز الإلكتروني</p>
-            <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8; text-align: right;">مشروع جدة السكني - جميع الحقوق محفوظة</p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8; text-align: right;">مشروع 25 - حي الزهراء في جدة - جميع الحقوق محفوظة</p>
           </div>
         </div>
       `,

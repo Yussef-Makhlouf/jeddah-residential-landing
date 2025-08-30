@@ -1,67 +1,60 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Bed, Bath, Square, MessageCircle } from "lucide-react"
 import Image from "next/image"
 import { useSourceTracking } from "@/hooks/use-source-tracking"
 import { generateWhatsAppUrl } from "@/lib/whatsapp-messages"
+import apiService from "@/lib/api-service"
+import { Apartment } from "@/lib/website-data"
 
 interface ApartmentShowcaseProps {
   onBookingClick: () => void
 }
 
-const apartments = [
-  {
-    id: "A",
-    name: "نموذج A - واجهة أمامية",
-    price: "890,000",
-    area: "155",
-    rooms: 4,
-    bathrooms: 4,
-    features: ["غرفة استقبال", "2 غرفة نوم", "4 دورات مياه", "مجلس نساء", "مطبخ", "غرفة سائق", "غرفة خادمة"],
-    popular: true,
-    image: "/a.jpg",
-  },
-  {
-    id: "B",
-    name: "نموذج B - واجهة خلفية",
-    price: "870,000",
-    area: "151",
-    rooms: 4,
-    bathrooms: 4,
-    features: ["غرفة استقبال", "2 غرفة نوم", "مجلس", "مطبخ", "4 دورات مياه", "غرفة خادمة", "غرفة سائق"],
-    popular: false,
-    image: "/b.jpg",
-  },
-  {
-    id: "C",
-    name: "نموذج C - واجهة خلفية",
-    price: "870,000",
-    area: "151",
-    rooms: 4,
-    bathrooms: 4,
-    features: ["2 غرفة نوم", "مجلس", "مطبخ", "4 دورات مياه", "غرفة سائق"],
-    popular: false,
-    image: "/c.jpg",
-  },
-  {
-    id: "D",
-    name: "نموذج D - واجهة أمامية",
-    price: "890,000",
-    area: "155",
-    rooms: 4,
-    bathrooms: 4,
-    features: ["2 غرفة نوم", "مجلس", "مطبخ", "4 دورات مياه", "غرفة خادمة", "غرفة سائق"],
-    popular: false,
-    image: "/d.jpg",
-  },
-]
-
 export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
-  const [selectedApartment, setSelectedApartment] = useState(apartments[0])
+  const [apartments, setApartments] = useState<Apartment[]>([])
+  const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(null)
   const { source, socialMedia } = useSourceTracking()
+
+  useEffect(() => {
+    // Load apartments from API
+    const loadApartmentsData = async () => {
+      try {
+        const apartmentsData = await apiService.getApartmentsData()
+        setApartments(apartmentsData)
+        if (apartmentsData.length > 0) {
+          setSelectedApartment(apartmentsData[0])
+        }
+      } catch (error) {
+        console.error('Error loading apartments data:', error)
+        // Fallback to default apartments
+        const defaultApartments = [
+          {
+            id: "A",
+            name: "نموذج A - واجهة أمامية",
+            price: "890,000",
+            area: "155",
+            rooms: 4,
+            bathrooms: 4,
+            features: ["غرفة استقبال", "2 غرفة نوم", "4 دورات مياه", "مجلس نساء", "مطبخ", "غرفة سائق", "غرفة خادمة"],
+            popular: true,
+            image: "/a.jpg",
+          }
+        ]
+        setApartments(defaultApartments)
+        setSelectedApartment(defaultApartments[0])
+      }
+    }
+
+    loadApartmentsData()
+  }, [])
+
+  if (!selectedApartment || apartments.length === 0) {
+    return null // Loading state
+  }
 
   const handleWhatsAppContact = () => {
     const platform = socialMedia || source || 'default'
@@ -193,7 +186,7 @@ export function ApartmentShowcase({ onBookingClick }: ApartmentShowcaseProps) {
                 <div className="mb-6 md:mb-8">
                   <h4 className="font-bold text-[#2c2c2c] mb-4">مكونات الشقة:</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
-                    {selectedApartment.features.map((feature, index) => (
+                    {selectedApartment.features.map((feature: string, index: number) => (
                       <div key={index} className="flex items-center space-x-2 space-x-reverse">
                         <div className="w-2 h-2 bg-[#540f6b] rounded-full flex-shrink-0 mx-2" ></div>
                         <span className="text-[#2c2c2c] text-sm md:text-base">{feature}</span>

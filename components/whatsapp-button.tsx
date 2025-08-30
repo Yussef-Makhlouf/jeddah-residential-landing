@@ -3,7 +3,9 @@
 import { Button } from "@/components/ui/button"
 import { MessageCircle } from "lucide-react"
 import { useSourceTracking } from "@/hooks/use-source-tracking"
-import { generateWhatsAppUrl } from "@/lib/whatsapp-messages"
+import { useAnalyticsTracking } from "@/hooks/use-analytics-tracking"
+import { generateWhatsAppUrl, getWhatsAppConfig } from "@/lib/whatsapp-messages"
+import { trackContactAction } from "@/lib/gtm"
 
 interface WhatsAppButtonProps {
   variant?: 'default' | 'outline' | 'ghost'
@@ -21,10 +23,22 @@ export function WhatsAppButton({
   showIcon = true 
 }: WhatsAppButtonProps) {
   const { source, socialMedia } = useSourceTracking()
+  const { trackWhatsAppClick } = useAnalyticsTracking()
   
   const handleWhatsAppClick = () => {
     const platform = socialMedia || source || 'default'
+    const config = getWhatsAppConfig(platform)
     const whatsappUrl = generateWhatsAppUrl(platform)
+    
+    // تتبع النقرة مع تفاصيل المنصة ورقم الهاتف (Analytics القديم)
+    trackWhatsAppClick(config.phone, platform)
+    
+    // تتبع GTM - Google Tag Manager
+    trackContactAction('whatsapp', config.phone, platform, source)
+    
+    console.log(`🔥 WhatsApp click from ${platform} → Phone: ${config.phone}`)
+    console.log(`📊 GTM Tracking: whatsapp_click event sent`)
+    
     window.open(whatsappUrl, "_blank")
   }
 

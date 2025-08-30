@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import apiService from "@/lib/api-service"
+import { ImageCarouselInfo } from "@/lib/website-data"
 
 interface Image {
   src: string
@@ -9,21 +11,55 @@ interface Image {
 }
 
 interface ImageCarouselProps {
-  images: Image[]
   className?: string
 }
 
-export const ImageCarousel = ({ images, className = "" }: ImageCarouselProps) => {
+export const ImageCarousel = ({ className = "" }: ImageCarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [carouselInfo, setCarouselInfo] = useState<ImageCarouselInfo | null>(null)
 
-  // Auto-advance slides
   useEffect(() => {
+    const loadCarouselData = async () => {
+      try {
+        const data = await apiService.getImageCarouselData()
+        setCarouselInfo(data)
+      } catch (error) {
+        console.error('Error loading image carousel data:', error)
+        // Fallback to default images
+        setCarouselInfo({
+          title: "معرض الصور",
+          subtitle: " ",
+          images: [
+            { src: "/banner.png", alt: "مشروع الزهراء السكني", title: "مشروع راف 25" },
+            { src: "/banner1.png", alt: "مشروع الزهراء السكني", title: "مشروع راف 25" },
+            { src: "/banner2.png", alt: "مشروع الزهراء السكني", title: "مشروع راف 25" }
+          ]
+        })
+      }
+    }
+
+    loadCarouselData()
+  }, [])
+
+
+  // Auto-advance slides - moved before conditional return
+  useEffect(() => {
+    if (!carouselInfo || !carouselInfo.images || carouselInfo.images.length === 0) {
+      return
+    }
+    
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length)
+      setCurrentSlide((prev) => (prev + 1) % carouselInfo.images.length)
     }, 5000) // Change slide every 5 seconds
 
     return () => clearInterval(interval)
-  }, [images.length])
+  }, [carouselInfo])
+
+  if (!carouselInfo || !carouselInfo.images || carouselInfo.images.length === 0) {
+    return null
+  }
+
+  const images = carouselInfo.images
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % images.length)

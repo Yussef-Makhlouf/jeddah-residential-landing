@@ -2,6 +2,11 @@ import type React from "react"
 import type { Metadata } from "next"
 import { IBM_Plex_Sans_Arabic } from "next/font/google"
 import "./globals.css"
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import '@/lib/auto-init' // Auto-initialize database on server startup
+import { PageLoaderWrapper } from '@/components/page-loader-wrapper'
+import { GTMScript } from '@/components/gtm-script'
 
 const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
@@ -24,8 +29,42 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ar" dir="rtl" className={`${ibmPlexSansArabic.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="ar" dir="rtl" className={`${ibmPlexSansArabic.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Initialize GTM DataLayer only */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];`
+          }}
+        />
+      </head>
+      <body className="font-sans antialiased">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MGMC6KSC"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        <GTMScript />
+        <PageLoaderWrapper>
+          {children}
+        </PageLoaderWrapper>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={true}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </body>
     </html>
   )
 }

@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Notification } from "@/components/ui/notification"
 import { useSourceTracking } from "@/hooks/use-source-tracking"
+import { pushToDataLayer } from "@/lib/gtm"
 import { X, User, Calendar, Home } from "lucide-react"
 
 interface BookingModalProps {
@@ -30,6 +32,7 @@ interface FormErrors {
 
 export function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const { source, socialMedia } = useSourceTracking()
+  const router = useRouter()
   
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -39,7 +42,6 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [notification, setNotification] = useState<{
     type: 'success' | 'error' | 'info'
     message: string
@@ -98,18 +100,28 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
       }
 
       setIsSubmitting(false)
-      setIsSubmitted(true)
 
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setFormData({
-          name: "",
-          phone: "",
-          notes: "",
-        })
-        onClose()
-      }, 3000)
+      // تتبع GTM - Google Tag Manager
+      const platform = socialMedia || source || 'default'
+      pushToDataLayer({
+        event: 'form_submission',
+        form_type: 'booking_form',
+        traffic_source: platform,
+        phone_number: formData.phone,
+        name: formData.name,
+        notes: formData.notes,
+        timestamp: new Date().toISOString()
+        
+      })
+      
+      console.log(`📋 Form submitted from ${platform}`)
+      console.log(`📊 GTM Tracking: form_submit and generate_lead events sent`)
+
+      // إغلاق المودال والتوجه لصفحة الشكر
+      onClose()
+      
+      // التوجه لصفحة الشكر مع منع العودة
+      router.replace('/thank-you')
 
     } catch (error) {
       console.error('خطأ في إرسال الطلب:', error)
@@ -153,19 +165,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
           </Button>
         </div>
 
-        {/* Success State */}
-        {isSubmitted ? (
-          <div className="p-12 text-center">
-            <div className="w-16 h-16 bg-[#c48765] bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-[#ffffff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-[#540f6b] mb-2">تم إرسال طلبك بنجاح!</h3>
-            <p className="text-[#6b7280]">سنتواصل معك قريباً </p>
-          </div>
-        ) : (
-          /* Form */
+        {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
             {/* Personal Information */}
             <div className="space-y-4">
@@ -240,7 +240,6 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
               </Button>
             </div>
           </form>
-        )}
       </div>
     </div>
     </>

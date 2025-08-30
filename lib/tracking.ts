@@ -88,7 +88,7 @@ export const getSocialMediaSourceFromCookie = (): SocialMediaTracking | null => 
 }
 
 export const generateSocialMediaUrl = (platform: SocialPlatform, campaign?: string, useExtension: boolean = false): string => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://project25.raf-advanced.sa'
   
   // Map platform to extension
   const platformToExtension: Record<SocialPlatform, SocialExtension> = {

@@ -1,32 +1,50 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { useSourceTracking } from "@/hooks/use-source-tracking"
+import { useAnalyticsTracking } from "@/hooks/use-analytics-tracking"
 import { getWhatsAppConfig } from "@/lib/whatsapp-messages"
+import { trackContactAction } from "@/lib/gtm"
 import { MessageCircle, ArrowRight, Star } from "lucide-react"
+import WebsiteDataService, { WhatsAppCTAInfo } from "@/lib/website-data"
+import { useDynamicProjectData } from "@/hooks/use-website-data"
 
-interface WhatsAppCTAProps {
-  title?: string
-  subtitle?: string
-  variant?: 'primary' | 'secondary' | 'minimal'
-  showPhone?: boolean
-  showMessage?: boolean
-}
-
-export function WhatsAppCTA({ 
-  title = "تواصل معنا الآن",
-  subtitle = "احصل على استشارة مجانية وتفاصيل المشروع",
-  variant = 'primary',
-  showPhone = true,
-  showMessage = false
-}: WhatsAppCTAProps) {
+export function WhatsAppCTA() {
+  const [whatsappInfo, setWhatsappInfo] = useState<WhatsAppCTAInfo | null>(null)
   const { source, socialMedia } = useSourceTracking()
+  const { trackPhoneClick } = useAnalyticsTracking()
+  const { getWhatsAppMessage } = useDynamicProjectData()
+  
+  useEffect(() => {
+    setWhatsappInfo(WebsiteDataService.getWhatsappCTAInfo())
+  }, [])
+
+  if (!whatsappInfo) {
+    return null
+  }
+
   const platform = socialMedia || source || 'default'
   const config = getWhatsAppConfig(platform)
   
+  const handlePhoneClick = () => {
+    const phoneNumber = whatsappInfo.phone
+    
+    // تتبع المكالمة (Analytics القديم)
+    trackPhoneClick(phoneNumber)
+    
+    // تتبع GTM - Google Tag Manager
+    trackContactAction('phone', phoneNumber, platform, source)
+    
+    console.log(`📞 Phone call from ${platform}`)
+    console.log(`📊 GTM Tracking: phone_call event sent`)
+    
+    window.open(`tel:${phoneNumber}`, "_self")
+  }
+  
   const getVariantStyles = () => {
-    switch (variant) {
+    switch (whatsappInfo.variant) {
       case 'primary':
         return 'bg-gradient-to-r from-green-600 to-emerald-600 text-white'
       case 'secondary':
@@ -44,27 +62,27 @@ export function WhatsAppCTA({
         {/* العنوان */}
         <div className="space-y-2">
           <h2 className="text-2xl md:text-3xl font-bold">
-            {title}
+            {whatsappInfo.title}
           </h2>
           <p className="text-lg opacity-90">
-            {subtitle}
+            {whatsappInfo.subtitle}
           </p>
         </div>
 
         {/* معلومات إضافية */}
-        {showPhone && (
+        {whatsappInfo.showPhone && (
           <div className="flex items-center justify-center space-x-2 space-x-reverse">
             <MessageCircle className="w-5 h-5" />
-            <span className="font-semibold">رقم الواتساب: {config.phone}</span>
+            <span className="font-semibold">رقم الواتساب: {whatsappInfo.phone}</span>
           </div>
         )}
 
         {/* الرسالة المخصصة */}
-        {showMessage && (
+        {whatsappInfo.showMessage && (
           <div className="bg-white/10 rounded-lg p-4">
             <p className="text-sm opacity-90">
               <strong>رسالة مخصصة لزوار {platform}:</strong><br />
-              {config.message}
+              {getWhatsAppMessage()}
             </p>
           </div>
         )}
@@ -73,7 +91,7 @@ export function WhatsAppCTA({
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <WhatsAppButton 
             size="lg" 
-            variant={variant === 'minimal' ? 'outline' : 'default'}
+            variant={whatsappInfo.variant === 'minimal' ? 'outline' : 'default'}
             className="min-w-[200px]"
           >
             <MessageCircle className="w-5 h-5" />
@@ -85,11 +103,11 @@ export function WhatsAppCTA({
             variant="outline"
             size="lg"
             className={`min-w-[200px] ${
-              variant === 'minimal' 
+              whatsappInfo.variant === 'minimal' 
                 ? 'border-white text-white hover:bg-white hover:text-green-600' 
                 : 'border-white text-white hover:bg-white hover:text-green-600'
             }`}
-            onClick={() => window.open("tel:0536667967", "_self")}
+            onClick={handlePhoneClick}
           >
             <Star className="w-5 h-5" />
             اتصل بنا مباشرة
