@@ -237,7 +237,7 @@ export function CleanHero({ onBookingClick }: CleanHeroProps) {
             <div className="space-y-8">
               <div className="space-y-4 backdrop-blur-md bg-white/10 p-8 rounded-2xl border border-white/20">
                 <h1 className="text-2xl lg:text-4xl font-light text-white leading-tight flex flex-col space-y-2">
-                  <span className="font-bold">حقق حلمك</span>
+                  <span className="font-bold"> مشروع راف 25 </span>
                   <span className="text-white font-bold">{heroInfo.subtitle}</span>
                   <span className="text-xl text-white/90 font-light">{heroInfo.location}</span>
                   <span className="text-xl text-white/90 font-light">أسعار تبدأ من </span>

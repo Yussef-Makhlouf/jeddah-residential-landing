@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import '@/lib/auto-init' // Auto-initialize database on server startup
 import { PageLoaderWrapper } from '@/components/page-loader-wrapper'
 import { GTMScript } from '@/components/gtm-script'
+import { AuthProvider } from '@/hooks/use-auth'
 
 const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
@@ -49,9 +50,11 @@ export default function RootLayout({
           />
         </noscript>
         <GTMScript />
-        <PageLoaderWrapper>
-          {children}
-        </PageLoaderWrapper>
+        <AuthProvider>
+          <PageLoaderWrapper>
+            {children}
+          </PageLoaderWrapper>
+        </AuthProvider>
         <ToastContainer
           position="top-right"
           autoClose={5000}

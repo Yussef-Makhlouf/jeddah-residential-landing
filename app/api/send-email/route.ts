@@ -1,18 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import WebsiteDataService from '@/lib/website-data';
+import { getSMTPConfig, validateEmailConfig } from '@/lib/email-config';
 
 // تكوين الناقل للبريد الإلكتروني (Hostinger)
 const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.hostinger.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+  // التحقق من صحة الإعدادات
+  if (!validateEmailConfig()) {
+    console.warn('⚠️ إعدادات البريد الإلكتروني غير مكتملة، سيتم استخدام القيم الافتراضية');
+  }
+  
+  return nodemailer.createTransport(getSMTPConfig());
 };
 
 export async function POST(request: NextRequest) {

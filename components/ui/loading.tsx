@@ -83,7 +83,7 @@ export function PageLoading() {
           <h2 className="text-2xl font-bold text-[#540f6b]">جاري التحميل</h2>
           <p className="text-[#6b7280] text-lg">يرجى الانتظار قليلاً...</p>
         </div>
-        <div className="flex justify-center space-x-1 space-x-reverse">
+        <div className="flex justify-center space-x-1 space-x-reverse" >
           <div className="w-2 h-2 bg-[#540f6b] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
           <div className="w-2 h-2 bg-[#540f6b] rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
           <div className="w-2 h-2 bg-[#540f6b] rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>

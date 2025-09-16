@@ -42,6 +42,9 @@ import {
 
 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ImageUpload } from "@/components/ui/image-upload"
+import { UserProfile } from "@/components/user-profile"
+import { UserManagement } from "@/components/user-management"
 
 import apiService from "@/lib/api-service"
 import { WebsiteData } from "@/lib/website-data"
@@ -130,6 +133,18 @@ const navigationItems = [
     label: "الضمانات",
     icon: Zap,
     description: "عوامل الثقة والضمانات"
+  },
+  {
+    id: "profile",
+    label: "الملف الشخصي",
+    icon: Users,
+    description: "إدارة الملف الشخصي وكلمة السر"
+  },
+  {
+    id: "users",
+    label: "إدارة المستخدمين",
+    icon: Users2,
+    description: "إضافة وتعديل وحذف المستخدمين"
   },
   // {
   //   id: "whatsapp-cta",
@@ -485,11 +500,12 @@ export default function ControlPanel() {
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <Label htmlFor="heroBackgroundImage">صورة الخلفية</Label>
-                      <Input
-                        id="heroBackgroundImage"
+                      <ImageUpload
+                        label="صورة الخلفية"
                         value={data.hero.backgroundImage}
-                        onChange={(e) => setData(prev => prev ? { ...prev, hero: { ...prev.hero, backgroundImage: e.target.value } } : null)}
+                        onChange={(url) => setData(prev => prev ? { ...prev, hero: { ...prev.hero, backgroundImage: url } } : null)}
+                        aspectRatio="aspect-[16/9]"
+                        placeholder="اسحب وأفلت صورة الخلفية هنا أو انقر للاختيار"
                       />
                     </div>
                   </div>
@@ -776,19 +792,20 @@ export default function ControlPanel() {
                           />
                         </div>
                         <div>
-                          <Label htmlFor={`apt-image-${index}`}>رابط الصورة</Label>
-                          <Input
-                            id={`apt-image-${index}`}
+                          <ImageUpload
+                            label="صورة الشقة"
                             value={apartment.image}
-                            onChange={(e) => {
+                            onChange={(url) => {
                               if (!data) return
                               setData(prev => prev ? {
                                 ...prev,
                                 apartments: prev.apartments.map(apt => 
-                                  apt.id === apartment.id ? { ...apt, image: e.target.value } : apt
+                                  apt.id === apartment.id ? { ...apt, image: url } : apt
                                 )
                               } : null)
                             }}
+                            aspectRatio="aspect-[4/3]"
+                            placeholder="اسحب وأفلت صورة الشقة هنا أو انقر للاختيار"
                           />
                         </div>
                       </div>
@@ -1553,21 +1570,22 @@ export default function ControlPanel() {
                           </div>
                           <div className="grid md:grid-cols-3 gap-4">
                             <div>
-                              <Label htmlFor={`image-src-${index}`}>رابط الصورة</Label>
-                              <Input
-                                id={`image-src-${index}`}
+                              <ImageUpload
+                                label="صورة المعرض"
                                 value={image.src}
-                                onChange={(e) => {
+                                onChange={(url) => {
                                   setData(prev => prev ? {
                                     ...prev,
                                     imageCarousel: {
                                       ...prev.imageCarousel,
                                       images: prev.imageCarousel.images.map((img, i) => 
-                                        i === index ? { ...img, src: e.target.value } : img
+                                        i === index ? { ...img, src: url } : img
                                       )
                                     }
                                   } : null)
                                 }}
+                                aspectRatio="aspect-[16/9]"
+                                placeholder="اسحب وأفلت صورة المعرض هنا أو انقر للاختيار"
                               />
                             </div>
                             <div>
@@ -2567,8 +2585,22 @@ export default function ControlPanel() {
               </Card>
             )} */}
 
+            {/* Profile Section */}
+            {activeTab === "profile" && (
+              <div className="space-y-6">
+                <UserProfile />
+              </div>
+            )}
+
+            {/* Users Management Section */}
+            {activeTab === "users" && (
+              <div className="space-y-6">
+                <UserManagement />
+              </div>
+            )}
+
             {/* Default content for other tabs */}
-            {!["project", "apartments", "hero", "contact", "social", "strategic", "highlights", "gallery", "contact-section", "trust", "whatsapp-cta", "whatsapp-section", "location"].includes(activeTab) && (
+            {!["project", "apartments", "hero", "contact", "social", "strategic", "highlights", "gallery", "contact-section", "trust", "whatsapp-cta", "whatsapp-section", "location", "profile", "users"].includes(activeTab) && (
               <Card>
                 <CardHeader>
                   <CardTitle>مرحباً بك في لوحة التحكم</CardTitle>
